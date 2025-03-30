@@ -1,6 +1,10 @@
 
 import { Github, Linkedin, Twitter, Mail, Phone, MapPin, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useState } from "react";
+import { Textarea } from "@/components/ui/textarea";
+import { Input } from "@/components/ui/input";
+import { useToast } from "@/hooks/use-toast";
 
 interface SocialLinkProps {
   href: string;
@@ -26,6 +30,52 @@ const SocialLink = ({ href, icon, label }: SocialLinkProps) => {
 };
 
 const Contact = () => {
+  const [email, setEmail] = useState("");
+  const [subject, setSubject] = useState("");
+  const [message, setMessage] = useState("");
+  const [isSending, setIsSending] = useState(false);
+  const { toast } = useToast();
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email || !subject || !message) {
+      toast({
+        title: "Error",
+        description: "Please fill in all fields",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setIsSending(true);
+
+    try {
+      // Create a mailto link
+      const mailtoLink = `mailto:noel.regis04@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(`From: ${email}\n\n${message}`)}`;
+      
+      // Open the default mail client
+      window.open(mailtoLink, "_blank");
+      
+      toast({
+        title: "Success!",
+        description: "Your email client has been opened with the message details.",
+      });
+      
+      // Clear form
+      setEmail("");
+      setSubject("");
+      setMessage("");
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to send message. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSending(false);
+    }
+  };
+
   return (
     <div className="py-16 relative" id="contact">
       <div className="absolute inset-0 overflow-hidden">
@@ -109,13 +159,56 @@ const Contact = () => {
               </div>
             </div>
             
-            <div className="p-6 rounded-lg bg-darkBg-lighter border border-white/5 glass-effect">
-              <p className="text-lightText mb-4">Want to discuss a project or have questions?</p>
-              <Button className="w-full bg-teal hover:bg-teal-light text-darkBg">
+            <form onSubmit={handleSubmit} className="p-6 rounded-lg bg-darkBg-lighter border border-white/5 glass-effect space-y-4">
+              <h3 className="text-xl font-bold mb-4 text-teal">Send Message</h3>
+              
+              <div>
+                <label htmlFor="email" className="block text-sm font-medium text-lightText mb-1">Your Email</label>
+                <Input 
+                  id="email" 
+                  type="email" 
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="your.email@example.com"
+                  className="bg-darkBg border-white/10 focus-visible:ring-teal"
+                  required
+                />
+              </div>
+              
+              <div>
+                <label htmlFor="subject" className="block text-sm font-medium text-lightText mb-1">Subject</label>
+                <Input 
+                  id="subject" 
+                  type="text"
+                  value={subject}
+                  onChange={(e) => setSubject(e.target.value)}
+                  placeholder="What is this regarding?"
+                  className="bg-darkBg border-white/10 focus-visible:ring-teal"
+                  required
+                />
+              </div>
+              
+              <div>
+                <label htmlFor="message" className="block text-sm font-medium text-lightText mb-1">Message</label>
+                <Textarea 
+                  id="message"
+                  value={message}
+                  onChange={(e) => setMessage(e.target.value)}
+                  placeholder="Your message here..."
+                  className="bg-darkBg border-white/10 focus-visible:ring-teal min-h-[120px]"
+                  required
+                />
+              </div>
+              
+              <Button 
+                type="submit"
+                className="w-full bg-teal hover:bg-teal-light text-darkBg"
+                disabled={isSending}
+              >
                 <Mail className="w-4 h-4 mr-2" />
-                Send Message
+                {isSending ? "Sending..." : "Send Message"}
               </Button>
-            </div>
+            </form>
           </div>
         </div>
       </div>

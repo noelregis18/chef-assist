@@ -13,6 +13,9 @@ const Index = () => {
     // Set dark mode by default
     document.documentElement.classList.add("dark");
     
+    // Ensure we start at the top of the page on load
+    window.scrollTo(0, 0);
+    
     // Smooth scroll for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function (e) {

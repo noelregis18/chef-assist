@@ -27,6 +27,31 @@ const sampleResponses: Record<string, string[]> = {
     "Faasos offers a variety of delicious wraps, rolls, and rice bowls. Some popular items include Chicken Tikka Wrap, Paneer Tikka Wrap, and Veg Biryani. Would you like to know more about any specific category?",
     "Our menu includes a range of wraps, rolls, rice dishes, and desserts. We have both vegetarian and non-vegetarian options. Is there something specific you're looking for?",
   ],
+  all_dishes: [
+    "At Faasos, we offer a wide variety of dishes:\n\n" +
+    "🌮 Wraps & Rolls:\n" +
+    "- Chicken Tikka Wrap\n" +
+    "- Paneer Tikka Wrap\n" +
+    "- Egg Bhurji Wrap\n" +
+    "- Aloo Tikki Wrap\n" +
+    "- Mutton Seekh Wrap\n" +
+    "- Double Chicken Classic Wrap\n\n" +
+    "🍚 Rice Bowls:\n" +
+    "- Veg Biryani\n" +
+    "- Chicken Biryani\n" +
+    "- Paneer Rice Bowl\n" +
+    "- Chicken Rice Bowl\n\n" +
+    "🥗 Sides:\n" +
+    "- French Fries\n" +
+    "- Potato Wedges\n" +
+    "- Cheesy Dip\n" +
+    "- Mint Chaas\n\n" +
+    "🍰 Desserts:\n" +
+    "- Chocolate Brownie\n" +
+    "- Gulab Jamun\n" +
+    "- Choco Lava Cake\n\n" +
+    "Would you like to know more about any particular dish?",
+  ],
   timing: [
     "Faasos is open from 10:00 AM to 11:00 PM, seven days a week. Our kitchen closes for orders at 10:30 PM.",
     "We're open daily from 10 AM to 11 PM. You can place orders until 10:30 PM.",
@@ -51,6 +76,34 @@ const sampleResponses: Record<string, string[]> = {
     "You can contact Faasos customer service at 1800-XXX-XXXX or email us at support@faasos.com. Our customer service team is available from 9 AM to 12 AM every day.",
     "For any queries or feedback, please call our customer service at 1800-XXX-XXXX or email support@faasos.com. We're available to assist you daily from 9 AM to midnight.",
   ],
+  offers: [
+    "Faasos regularly has exciting offers! Currently, we have 'Buy 1 Get 1 Free' on selected wraps on Wednesdays, 20% off on your first order through our app, and special discounts for students with valid ID. Check our app for more daily deals!",
+    "We have several ongoing promotions! You can enjoy 15% off on orders above ₹300, free delivery on orders above ₹500, and special combo meals at discounted prices. Download our app to access exclusive app-only offers!",
+  ],
+  allergens: [
+    "All our menu items have allergen information available. Our staff can provide detailed information about ingredients in each dish. We take allergies very seriously and can customize dishes to accommodate dietary restrictions when possible.",
+    "We maintain comprehensive allergen information for all our dishes. Common allergens like nuts, dairy, gluten, and shellfish are clearly marked on our menu. Please inform our staff about any allergies when placing your order.",
+  ],
+  bestsellers: [
+    "Our most popular items include the Chicken Tikka Wrap, Paneer Tikka Wrap, Double Cheese Veg Roll, Chicken Biryani, and our signature Chocolate Brownie dessert. These have consistently been customer favorites!",
+    "Customers love our Butter Chicken Wrap, Aloo Tikki Roll, Chicken Seekh Wrap, Mutton Biryani, and Potato Cheese Shots. These top-selling items have excellent reviews and are must-tries when visiting Faasos!",
+  ],
+  vegetarian: [
+    "Yes, we have plenty of vegetarian options! Our vegetarian menu includes Paneer Tikka Wrap, Veg Deluxe Wrap, Aloo Tikki Roll, Paneer Bhurji Roll, Veg Biryani, Paneer Rice Bowl, and several vegetarian sides and desserts.",
+    "Faasos offers an extensive range of vegetarian dishes including various paneer wraps, potato-based rolls, vegetable rice bowls, cheese-filled sides, and sweet desserts. All our vegetarian items are prepared separately from non-vegetarian items.",
+  ],
+  spicy: [
+    "Many of our dishes can be adjusted for spice levels. Our Andhra Chicken Wrap and Schezwan Chicken Roll are among our spiciest offerings. Please specify your spice preference when ordering, and we'll try to accommodate it.",
+    "We have several dishes that pack a good amount of heat! Try our Peri Peri Chicken Wrap or our Spicy Paneer Roll if you enjoy spicy food. For milder options, our Classic Rolls and Cheese Wraps are excellent choices.",
+  ],
+  health: [
+    "For health-conscious customers, we offer lighter options like our Whole Wheat Wraps, Grilled Chicken Salad Wrap, and Brown Rice Bowls. We also provide detailed nutritional information on request to help you make informed choices.",
+    "We have several healthier alternatives on our menu including protein-rich, low-carb options. Our Lite Wraps, Protein Bowls, and Salad options are designed for health-conscious customers without compromising on taste.",
+  ],
+  machine: [
+    "Our restaurant uses modern kitchen equipment to ensure high-quality food preparation. We have specialized grills for our wraps, professional-grade rice cookers for consistent biryani, and state-of-the-art refrigeration to maintain freshness.",
+    "Faasos kitchens are equipped with commercial-grade equipment including automated wrap makers, precision temperature-controlled grills, industrial mixers for our signature sauces, and high-efficiency packaging machines to ensure your food arrives fresh.",
+  ]
 };
 
 // Function to generate a response based on user query
@@ -59,6 +112,8 @@ const generateResponse = (query: string): string => {
   
   if (query.includes("hi") || query.includes("hello") || query.includes("hey")) {
     return sampleResponses.greeting[Math.floor(Math.random() * sampleResponses.greeting.length)];
+  } else if (query.includes("all dishes") || query.includes("full menu") || query.includes("everything you have") || query.includes("all food") || query.includes("everything on menu")) {
+    return sampleResponses.all_dishes[0];
   } else if (query.includes("menu") || query.includes("food") || query.includes("eat") || query.includes("dish")) {
     return sampleResponses.menu[Math.floor(Math.random() * sampleResponses.menu.length)];
   } else if (query.includes("time") || query.includes("hour") || query.includes("open") || query.includes("close")) {
@@ -73,6 +128,20 @@ const generateResponse = (query: string): string => {
     return sampleResponses.about[Math.floor(Math.random() * sampleResponses.about.length)];
   } else if (query.includes("contact") || query.includes("phone") || query.includes("email") || query.includes("support")) {
     return sampleResponses.contact[Math.floor(Math.random() * sampleResponses.contact.length)];
+  } else if (query.includes("offer") || query.includes("discount") || query.includes("deal") || query.includes("coupon") || query.includes("promo")) {
+    return sampleResponses.offers[Math.floor(Math.random() * sampleResponses.offers.length)];
+  } else if (query.includes("allerg") || query.includes("dietary") || query.includes("restrict") || query.includes("gluten") || query.includes("nut")) {
+    return sampleResponses.allergens[Math.floor(Math.random() * sampleResponses.allergens.length)];
+  } else if (query.includes("bestseller") || query.includes("popular") || query.includes("recommended") || query.includes("favorite")) {
+    return sampleResponses.bestsellers[Math.floor(Math.random() * sampleResponses.bestsellers.length)];
+  } else if (query.includes("vegetarian") || query.includes("veg ") || query.includes("no meat") || query.includes("no chicken")) {
+    return sampleResponses.vegetarian[Math.floor(Math.random() * sampleResponses.vegetarian.length)];
+  } else if (query.includes("spicy") || query.includes("hot ") || query.includes("chili") || query.includes("pepper")) {
+    return sampleResponses.spicy[Math.floor(Math.random() * sampleResponses.spicy.length)];
+  } else if (query.includes("health") || query.includes("calorie") || query.includes("diet") || query.includes("nutrition")) {
+    return sampleResponses.health[Math.floor(Math.random() * sampleResponses.health.length)];
+  } else if (query.includes("machine") || query.includes("equipment") || query.includes("kitchen tech") || query.includes("appliance")) {
+    return sampleResponses.machine[Math.floor(Math.random() * sampleResponses.machine.length)];
   } else {
     return sampleResponses.default[Math.floor(Math.random() * sampleResponses.default.length)];
   }
@@ -93,10 +162,14 @@ const ChatInterface = () => {
   const [showScrollButton, setShowScrollButton] = useState(false);
   const chatContainerRef = useRef<HTMLDivElement>(null);
 
+  // Scroll to bottom automatically when new messages are added
   useEffect(() => {
-    scrollToBottom();
+    if (messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+    }
   }, [messages]);
 
+  // Handle scroll button visibility
   useEffect(() => {
     const chatContainer = chatContainerRef.current;
     if (!chatContainer) return;
@@ -162,6 +235,7 @@ const ChatInterface = () => {
       <div 
         ref={chatContainerRef}
         className="flex-1 overflow-y-auto p-4 space-y-4 chat-gradient"
+        style={{ position: 'relative', height: 'calc(100% - 130px)' }}
       >
         {messages.map((message) => (
           <div
@@ -172,7 +246,7 @@ const ChatInterface = () => {
             )}
           >
             {message.sender === "bot" && (
-              <Avatar className="w-8 h-8 rounded-full bg-teal/10 border border-teal/20">
+              <Avatar className="w-8 h-8 rounded-full bg-teal/10 border border-teal/20 flex-shrink-0">
                 <Bot className="h-4 w-4 text-teal" />
               </Avatar>
             )}
@@ -185,7 +259,7 @@ const ChatInterface = () => {
                   : "bg-darkBg-darker text-lightText rounded-tl-none"
               )}
             >
-              <p className="text-sm">{message.text}</p>
+              <p className="text-sm whitespace-pre-line">{message.text}</p>
               <p className="text-xs opacity-70 mt-1 text-right">
                 {message.timestamp.toLocaleTimeString([], {
                   hour: "2-digit",
@@ -195,7 +269,7 @@ const ChatInterface = () => {
             </div>
             
             {message.sender === "user" && (
-              <Avatar className="w-8 h-8 rounded-full bg-teal/80 border border-teal">
+              <Avatar className="w-8 h-8 rounded-full bg-teal/80 border border-teal flex-shrink-0">
                 <User className="h-4 w-4 text-darkBg" />
               </Avatar>
             )}
@@ -204,7 +278,7 @@ const ChatInterface = () => {
         
         {isTyping && (
           <div className="flex items-start gap-2.5">
-            <Avatar className="w-8 h-8 rounded-full bg-teal/10 border border-teal/20">
+            <Avatar className="w-8 h-8 rounded-full bg-teal/10 border border-teal/20 flex-shrink-0">
               <Bot className="h-4 w-4 text-teal" />
             </Avatar>
             <div className="max-w-[75%] px-4 py-2 rounded-lg shadow-sm bg-darkBg-darker text-lightText rounded-tl-none glass-effect">
