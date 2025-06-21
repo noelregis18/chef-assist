@@ -1,4 +1,3 @@
-
 import { useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
@@ -10,9 +9,6 @@ import Footer from "@/components/Footer";
 
 const Index = () => {
   useEffect(() => {
-    // Set dark mode by default
-    document.documentElement.classList.add("dark");
-    
     // Ensure we start at the top of the page on load
     window.scrollTo(0, 0);
     
@@ -40,7 +36,7 @@ const Index = () => {
   }, []);
 
   return (
-    <div className="min-h-screen gradient-bg">
+    <div className="min-h-screen bg-background text-foreground">
       <Navbar />
       <main>
         <Hero />
